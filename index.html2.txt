@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24/7 Practice Partner - Beyond The Phrase Book</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a2e;
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+      --cream: #faf7f2;
+      --muted: #8a8070;
+      --white: #fff;
+      --active: #2d5a3d;
+      --active-light: #edf4ef;
+      --locked-bg: #ede9e3
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh
+    }
+
+    .header {
+      background: var(--ink);
+      padding: 32px 24px 28px;
+      text-align: center
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px
+    }
+
+    .htitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 6vw, 38px);
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 8px
+    }
+
+    .htitle em {
+      font-style: italic;
+      color: var(--gold-light)
+    }
+
+    .hsub {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 300
+    }
+
+    .gline {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 16px auto 0
+    }
+
+    .vtoggle {
+      margin-top: 14px
+    }
+
+    .vbtn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer
+    }
+
+    .vbtn.muted {
+      background: rgba(201, 168, 76, 0.2);
+      border-color: var(--gold);
+      color: var(--gold)
+    }
+
+    .main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 28px 16px 60px
+    }
+
+    .slabel {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 1.5px solid transparent
+    }
+
+    .card.active {
+      border-color: var(--active);
+      box-shadow: 0 4px 20px rgba(45, 90, 61, 0.12)
+    }
+
+    .card.locked {
+      border-color: #e8e4de;
+      opacity: 0.8
+    }
+
+    .cheader {
+      display: flex;
+      align-items: center;
+      padding: 18px 20px;
+      gap: 14px;
+      cursor: pointer
+    }
+
+    .cnum {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0
+    }
+
+    .card.active .cnum {
+      background: var(--active);
+      color: #fff
+    }
+
+    .card.locked .cnum {
+      background: var(--locked-bg);
+      color: var(--muted)
+    }
+
+    .cinfo {
+      flex: 1
+    }
+
+    .ctitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700
+    }
+
+    .card.locked .ctitle {
+      color: var(--muted)
+    }
+
+    .cdesc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-weight: 300
+    }
+
+    .cbadge {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      white-space: nowrap
+    }
+
+    .bfree {
+      background: var(--active-light);
+      color: var(--active)
+    }
+
+    .blocked {
+      background: var(--locked-bg);
+      color: var(--muted)
+    }
+
+    .conv {
+      display: none;
+      border-top: 1px solid #eee;
+      padding: 20px;
+      background: #fafafa
+    }
+
+    .conv.open {
+      display: block
+    }
+
+    .chatwin {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e8e4de;
+      min-height: 220px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.55
+    }
+
+    .msg.ai {
+      background: var(--active-light);
+      color: var(--ink);
+      align-self: flex-start;
+      border-bottom-left-radius: 3px
+    }
+
+    .msg.user {
+      background: var(--ink);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 3px
+    }
+
+    .msg.thinking {
+      background: var(--active-light);
+      color: var(--muted);
+      align-self: flex-start;
+      font-style: italic;
+      font-size: 13px
+    }
+
+    .speakico {
+      cursor: pointer;
+      font-size: 12px;
+      opacity: 0.5;
+      margin-left: 6px
+    }
+
+    .irow {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      margin-top: 4px
+    }
+
+    .cinput {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1.5px solid #e0dbd4;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: #fff;
+      resize: none;
+      outline: none;
+      min-height: 48px;
+      max-height: 120px
+    }
+
+    .cinput:focus {
+      border-color: var(--active)
+    }
+
+    .sbtn {
+      width: 48px;
+      height: 48px;
+      background: var(--active);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .sbtn:disabled {
+      background: #ccc;
+      cursor: not-allowed
+    }
+
+    .sbtn svg {
+      width: 20px;
+      height: 20px;
+      fill: white
+    }
+
+    .mbtn {
+      width: 48px;
+      height: 48px;
+      background: #1a1a2e;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 20px
+    }
+
+    .mbtn.listening {
+      background: #c0392b;
+      animation: pulse 1s infinite
+    }
+
+    .mbtn:disabled {
+      background: #ccc;
+      cursor: not-allowed
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.6
+      }
+    }
+
+    .micstatus {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+      font-style: italic;
+      min-height: 18px
+    }
+
+    .rbtn {
+      margin-top: 10px;
+      background: none;
+      border: 1px solid #e0dbd4;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer
+    }
+
+    .lockmsg {
+      display: none;
+      border-top: 1px solid #ede9e3;
+      padding: 24px;
+      background: #faf8f5;
+      text-align: center
+    }
+
+    .lockmsg.open {
+      display: block
+    }
+
+    .lockmsg h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      margin-bottom: 8px
+    }
+
+    .lockmsg p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .ctabtn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none
+    }
+
+    .footer {
+      margin-top: 36px;
+      padding: 20px;
+      background: var(--ink);
+      border-radius: 12px;
+      text-align: center
+    }
+
+    .footer p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.7
+    }
+
+    .footer strong {
+      color: var(--gold-light);
+      font-weight: 500
+    }
+
+    .fbrand {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.25);
+      margin-top: 14px;
+      letter-spacing: 1px
+    }
+
+    .startwrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px
+    }
+
+    .startwrap button {
+      background: #2d5a3d;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      cursor: pointer
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="eyebrow">Beyond The Phrase Book</div>
+    <div class="htitle">Your <em>24/7</em> Practice Partner</div>
+    <div class="hsub">Real English. Real situations. Any time you need it.</div>
+    <div class="gline"></div>
+    <div class="vtoggle"><button class="vbtn" id="vbtn" onclick="toggleVoice()">&#128266; Voice On</button></div>
+  </div>
+  <div class="main">
+    <div class="slabel">Choose Your Scenario</div>
+    <div class="card active">
+      <div class="cheader" onclick="toggleCard()">
+        <div class="cnum">1</div>
+        <div class="cinfo">
+          <div class="ctitle">The Airport Departure</div>
+          <div class="cdesc">Check-in, security, and getting to your gate with confidence</div>
+        </div>
+        <div class="cbadge bfree">Free</div>
+      </div>
+      <div class="conv" id="conv1">
+        <div class="chatwin" id="chat1">
+          <div class="startwrap" id="startwrap">
+            <button onclick="beginConversation()">&#9654; Start Conversation</button>
+          </div>
+        </div>
+        <div class="irow">
+          <textarea class="cinput" id="inp" placeholder="Type or use mic..." rows="1" onkeydown="handleKey(event)"></textarea>
+          <button class="mbtn" id="mbtn" onclick="toggleMic()">&#127908;</button>
+          <button class="sbtn" id="sbtn" onclick="sendMsg()"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
+        </div>
+        <div class="micstatus" id="mstat"></div>
+        <button class="rbtn" onclick="resetChat()">&#8635; Start over</button>
+      </div>
+    </div>
+    <div class="card locked">
+      <div class="cheader" onclick="toggleLocked(2)">
+        <div class="cnum">2</div>
+        <div class="cinfo">
+          <div class="ctitle">Hotel Reception</div>
+          <div class="cdesc">Checking in, making requests, handling issues</div>
+        </div>
+        <div class="cbadge blocked">&#128274; Full Programme</div>
+      </div>
+      <div class="lockmsg" id="lk2">
+        <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
+        <h3>Available in the Full Programme</h3>
+        <p>Book your free 30-minute conversation with Graham to find out more.</p>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+      </div>
+    </div>
+    <div class="card locked">
+      <div class="cheader" onclick="toggleLocked(3)">
+        <div class="cnum">3</div>
+        <div class="cinfo">
+          <div class="ctitle">Restaurant &mdash; Ordering Food</div>
+          <div class="cdesc">Confident ordering, questions, and real table conversation</div>
+        </div>
+        <div class="cbadge blocked">&#128274; Full Programme</div>
+      </div>
+      <div class="lockmsg" id="lk3">
+        <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
+        <h3>Available in the Full Programme</h3>
+        <p>Book your free 30-minute conversation with Graham to find out more.</p>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+      </div>
+    </div>
+    <div class="card locked">
+      <div class="cheader" onclick="toggleLocked(4)">
+        <div class="cnum">4</div>
+        <div class="cinfo">
+          <div class="ctitle">Polite Conversations</div>
+          <div class="cdesc">Small talk, social situations, confident everyday English</div>
+        </div>
+        <div class="cbadge blocked">&#128274; Full Programme</div>
+      </div>
+      <div class="lockmsg" id="lk4">
+        <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
+        <h3>Available in the Full Programme</h3>
+        <p>Book your free 30-minute conversation with Graham to find out more.</p>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+      </div>
+    </div>
+    <div class="card locked">
+      <div class="cheader" onclick="toggleLocked(5)">
+        <div class="cnum">5</div>
+        <div class="cinfo">
+          <div class="ctitle">On The Way Back Home</div>
+          <div class="cdesc">Returns, departures, wrapping up your journey in English</div>
+        </div>
+        <div class="cbadge blocked">&#128274; Full Programme</div>
+      </div>
+      <div class="lockmsg" id="lk5">
+        <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
+        <h3>Available in the Full Programme</h3>
+        <p>Book your free 30-minute conversation with Graham to find out more.</p>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+      </div>
+    </div>
+    <div class="footer">
+      <p>This is a <strong>free trial scenario</strong> from the Beyond The Phrase Book full programme.<br>All five travel scenarios available with the
+        <strong>12 Session Confidence Package.</strong></p>
+      <div class="fbrand">BEYOND THE PHRASE BOOK &mdash; GRAHAM</div>
+    </div>
+  </div>
+  <script>
+    var KEY="AIzaSyDyxNFhlC_yJWGooM8m2epz34m7al11wuM";
+var SYS="You are a friendly airline check-in agent at an international airport. Speak in natural clear British English. Greet the traveller and ask for their booking reference or passport. Keep the conversation realistic - ask about luggage, seat preferences, special requirements. If they make a grammar mistake gently correct them by saying We would usually say... then continue warmly. Keep responses to 2-3 sentences. Be patient and encouraging.";
+var hist=[],thinking=false,open=false,voiceOn=true,recog=null,listening=false;
+window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices()};
+function speak(t){if(!voiceOn)return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=0.92;u.pitch=1.05;var vs=window.speechSynthesis.getVoices();var v=vs.find(function(x){return x.lang==='en-GB'})||vs.find(function(x){return x.lang.startsWith('en')});if(v)u.voice=v;window.speechSynthesis.speak(u)}
+function toggleVoice(){voiceOn=!voiceOn;window.speechSynthesis.cancel();var b=document.getElementById('vbtn');b.innerHTML=voiceOn?'&#128266; Voice On':'&#128263; Voice Off';voiceOn?b.classList.remove('muted'):b.classList.add('muted')}
+function toggleCard(){var c=document.getElementById('conv1');document.querySelectorAll('.lockmsg').forEach(function(e){e.classList.remove('open')});if(!open){c.classList.add('open');open=true}else{c.classList.remove('open');open=false}}
+function toggleLocked(id){var m=document.getElementById('lk'+id);document.querySelectorAll('.conv').forEach(function(e){e.classList.remove('open')});document.querySelectorAll('.lockmsg').forEach(function(e){if(e.id!=='lk'+id)e.classList.remove('open')});m.classList.toggle('open');open=false}
+function beginConversation(){var w=document.getElementById('startwrap');if(w)w.remove();setupMic();startConv()}
+function setupMic(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){document.getElementById('mbtn').disabled=true;document.getElementById('mstat').textContent='Mic not supported in this browser';return}recog=new SR();recog.lang='en-GB';recog.continuous=false;recog.interimResults=true;recog.onstart=function(){listening=true;document.getElementById('mbtn').classList.add('listening');document.getElementById('mstat').textContent='Listening... speak now';window.speechSynthesis.cancel()};recog.onresult=function(e){var t='';for(var i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;document.getElementById('inp').value=t;if(e.results[e.results.length-1].isFinal){document.getElementById('mstat').textContent='Got it - sending...';setTimeout(sendMsg,400)}};recog.onerror=function(){listening=false;document.getElementById('mbtn').classList.remove('listening');document.getElementById('mstat').textContent='Could not hear - try again';setTimeout(function(){document.getElementById('mstat').textContent=''},3000)};recog.onend=function(){listening=false;document.getElementById('mbtn').classList.remove('listening')}}
+function toggleMic(){if(!recog)setupMic();if(!recog)return;if(listening){recog.stop()}else{document.getElementById('inp').value='';recog.start()}}
+async function startConv(){setT(true);var te=addMsg('Starting your conversation...','thinking');try{var r=await callAI("Please begin as the check-in agent. Greet me and ask for my booking details.");te.remove();hist.push({role:'model',parts:[{text:r}]});addMsg(r,'ai')}catch(e){te.remove();addMsg('Error: '+e.message,'ai')}setT(false)}
+async function sendMsg(){if(thinking)return;var inp=document.getElementById('inp');var t=inp.value.trim();if(!t)return;inp.value='';inp.style.height='auto';document.getElementById('mstat').textContent='';hist.push({role:'user',parts:[{text:t}]});addMsg(t,'user');setT(true);var te=addMsg('Thinking...','thinking');try{var r=await callAI(null);te.remove();hist.push({role:'model',parts:[{text:r}]});addMsg(r,'ai')}catch(e){te.remove();addMsg('Error: '+e.message,'ai')}setT(false)}
+async function callAI(first){var c=first?[{role:'user',parts:[{text:first}]}]:hist;var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key='+KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system_instruction:{parts:[{text:SYS}]},contents:c})});var d=await res.json();if(!res.ok)throw new Error(d.error?d.error.message:'API error');return d.candidates[0].content.parts[0].text}
+function addMsg(text,type){var chat=document.getElementById('chat1');var el=document.createElement('div');el.className='msg '+type;if(type==='ai'){var sp=document.createElement('span');sp.textContent=text;var ic=document.createElement('span');ic.className='speakico';ic.textContent=' \uD83D\uDD0A';ic.title='Replay';var tx=text;ic.onclick=function(){speak(tx)};el.appendChild(sp);el.appendChild(ic);speak(text)}else{el.textContent=text}chat.appendChild(el);chat.scrollTop=chat.scrollHeight;return el}
+function setT(s){thinking=s;document.getElementById('sbtn').disabled=s;document.getElementById('inp').disabled=s;document.getElementById('mbtn').disabled=s}
+function resetChat(){hist=[];window.speechSynthesis.cancel();if(recog&&listening)recog.stop();document.getElementById('chat1').innerHTML='<div class="startwrap" id="startwrap"><button onclick="beginConversation()">&#9654; Start Conversation</button></div>';document.getElementById('mstat').textContent=''}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg()}e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,120)+'px'}
+  </script>
+</body>
+
+</html>
