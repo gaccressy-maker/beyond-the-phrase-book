@@ -9,6 +9,11 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap"
     rel="stylesheet">
+  <!-- MailerLite Universal -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');ml('account', '2330034');
+  </script>
+  <!-- End MailerLite Universal -->
   <style>
     :root {
       --ink: #1a1a2e;
@@ -125,7 +130,7 @@
 
     .card.locked {
       border-color: #e8e4de;
-      opacity: 0.8
+      opacity: 0.9
     }
 
     .cheader {
@@ -385,7 +390,8 @@
     .lockmsg h3 {
       font-family: 'Playfair Display', serif;
       font-size: 17px;
-      margin-bottom: 8px
+      margin-bottom: 8px;
+      color: var(--ink)
     }
 
     .lockmsg p {
@@ -398,16 +404,28 @@
       margin-right: auto
     }
 
+    .divider {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 8px 0
+    }
+
     .ctabtn {
       display: inline-block;
-      background: var(--gold);
-      color: var(--ink);
+      background: var(--ink);
+      color: #fff;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       font-weight: 500;
       padding: 12px 24px;
       border-radius: 8px;
-      text-decoration: none
+      text-decoration: none;
+      margin-top: 8px
+    }
+
+    .ml-embedded {
+      max-width: 360px;
+      margin: 0 auto
     }
 
     .footer {
@@ -490,8 +508,9 @@
         <button class="rbtn" onclick="resetChat()">&#8635; Start over</button>
       </div>
     </div>
+
     <div class="card locked">
-      <div class="cheader" onclick="toggleLocked(2)">
+      <div class="cheader" onclick="toggleLocked('lk2')">
         <div class="cnum">2</div>
         <div class="cinfo">
           <div class="ctitle">Hotel Reception</div>
@@ -501,13 +520,17 @@
       </div>
       <div class="lockmsg" id="lk2">
         <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
-        <h3>Available in the Full Programme</h3>
-        <p>Book your free 30-minute conversation with Graham to find out more.</p>
-        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+        <h3>Unlock the Full Programme</h3>
+        <p>Enter your email below to get access to all 5 scenarios and book your free 30-minute conversation with
+          Graham.</p>
+        <div class="ml-embedded" data-form="qyZnqN"></div>
+        <div class="divider">or</div>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn" target="_blank">Book My Free 30 Minutes</a>
       </div>
     </div>
+
     <div class="card locked">
-      <div class="cheader" onclick="toggleLocked(3)">
+      <div class="cheader" onclick="toggleLocked('lk3')">
         <div class="cnum">3</div>
         <div class="cinfo">
           <div class="ctitle">Restaurant &mdash; Ordering Food</div>
@@ -517,13 +540,17 @@
       </div>
       <div class="lockmsg" id="lk3">
         <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
-        <h3>Available in the Full Programme</h3>
-        <p>Book your free 30-minute conversation with Graham to find out more.</p>
-        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+        <h3>Unlock the Full Programme</h3>
+        <p>Enter your email below to get access to all 5 scenarios and book your free 30-minute conversation with
+          Graham.</p>
+        <div class="ml-embedded" data-form="qyZnqN"></div>
+        <div class="divider">or</div>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn" target="_blank">Book My Free 30 Minutes</a>
       </div>
     </div>
+
     <div class="card locked">
-      <div class="cheader" onclick="toggleLocked(4)">
+      <div class="cheader" onclick="toggleLocked('lk4')">
         <div class="cnum">4</div>
         <div class="cinfo">
           <div class="ctitle">Polite Conversations</div>
@@ -533,13 +560,17 @@
       </div>
       <div class="lockmsg" id="lk4">
         <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
-        <h3>Available in the Full Programme</h3>
-        <p>Book your free 30-minute conversation with Graham to find out more.</p>
-        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+        <h3>Unlock the Full Programme</h3>
+        <p>Enter your email below to get access to all 5 scenarios and book your free 30-minute conversation with
+          Graham.</p>
+        <div class="ml-embedded" data-form="qyZnqN"></div>
+        <div class="divider">or</div>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn" target="_blank">Book My Free 30 Minutes</a>
       </div>
     </div>
+
     <div class="card locked">
-      <div class="cheader" onclick="toggleLocked(5)">
+      <div class="cheader" onclick="toggleLocked('lk5')">
         <div class="cnum">5</div>
         <div class="cinfo">
           <div class="ctitle">On The Way Back Home</div>
@@ -549,26 +580,30 @@
       </div>
       <div class="lockmsg" id="lk5">
         <div style="font-size:28px;margin-bottom:10px">&#128274;</div>
-        <h3>Available in the Full Programme</h3>
-        <p>Book your free 30-minute conversation with Graham to find out more.</p>
-        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn">Book My Free 30 Minutes</a>
+        <h3>Unlock the Full Programme</h3>
+        <p>Enter your email below to get access to all 5 scenarios and book your free 30-minute conversation with
+          Graham.</p>
+        <div class="ml-embedded" data-form="qyZnqN"></div>
+        <div class="divider">or</div>
+        <a href="https://calendly.com/gac-cressy/30min" class="ctabtn" target="_blank">Book My Free 30 Minutes</a>
       </div>
     </div>
+
     <div class="footer">
-      <p>This is a <strong>free trial scenario</strong> from the Beyond The Phrase Book full programme.<br>All five travel scenarios available with the
-        <strong>12 Session Confidence Package.</strong></p>
+      <p>This is a <strong>free trial scenario</strong> from the Beyond The Phrase Book full programme.<br>
+All five travel scenarios available with the <strong>12 Session Confidence Package.</strong></p>
       <div class="fbrand">BEYOND THE PHRASE BOOK &mdash; GRAHAM</div>
     </div>
   </div>
   <script>
-    var KEY="AIzaSyDyxNFhlC_yJWGooM8m2epz34m7al11wuM";
+    var KEY="AIzaSyBHS8GSfQTlr97DI5GY0kwqyiKZ0LnXCyY";
 var SYS="You are a friendly airline check-in agent at an international airport. Speak in natural clear British English. Greet the traveller and ask for their booking reference or passport. Keep the conversation realistic - ask about luggage, seat preferences, special requirements. If they make a grammar mistake gently correct them by saying We would usually say... then continue warmly. Keep responses to 2-3 sentences. Be patient and encouraging.";
 var hist=[],thinking=false,open=false,voiceOn=true,recog=null,listening=false;
 window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices()};
 function speak(t){if(!voiceOn)return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=0.92;u.pitch=1.05;var vs=window.speechSynthesis.getVoices();var v=vs.find(function(x){return x.lang==='en-GB'})||vs.find(function(x){return x.lang.startsWith('en')});if(v)u.voice=v;window.speechSynthesis.speak(u)}
 function toggleVoice(){voiceOn=!voiceOn;window.speechSynthesis.cancel();var b=document.getElementById('vbtn');b.innerHTML=voiceOn?'&#128266; Voice On':'&#128263; Voice Off';voiceOn?b.classList.remove('muted'):b.classList.add('muted')}
 function toggleCard(){var c=document.getElementById('conv1');document.querySelectorAll('.lockmsg').forEach(function(e){e.classList.remove('open')});if(!open){c.classList.add('open');open=true}else{c.classList.remove('open');open=false}}
-function toggleLocked(id){var m=document.getElementById('lk'+id);document.querySelectorAll('.conv').forEach(function(e){e.classList.remove('open')});document.querySelectorAll('.lockmsg').forEach(function(e){if(e.id!=='lk'+id)e.classList.remove('open')});m.classList.toggle('open');open=false}
+function toggleLocked(id){var m=document.getElementById(id);document.querySelectorAll('.conv').forEach(function(e){e.classList.remove('open')});document.querySelectorAll('.lockmsg').forEach(function(e){if(e.id!==id)e.classList.remove('open')});m.classList.toggle('open');open=false}
 function beginConversation(){var w=document.getElementById('startwrap');if(w)w.remove();setupMic();startConv()}
 function setupMic(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){document.getElementById('mbtn').disabled=true;document.getElementById('mstat').textContent='Mic not supported in this browser';return}recog=new SR();recog.lang='en-GB';recog.continuous=false;recog.interimResults=true;recog.onstart=function(){listening=true;document.getElementById('mbtn').classList.add('listening');document.getElementById('mstat').textContent='Listening... speak now';window.speechSynthesis.cancel()};recog.onresult=function(e){var t='';for(var i=e.resultIndex;i<e.results.length;i++)t+=e.results[i][0].transcript;document.getElementById('inp').value=t;if(e.results[e.results.length-1].isFinal){document.getElementById('mstat').textContent='Got it - sending...';setTimeout(sendMsg,400)}};recog.onerror=function(){listening=false;document.getElementById('mbtn').classList.remove('listening');document.getElementById('mstat').textContent='Could not hear - try again';setTimeout(function(){document.getElementById('mstat').textContent=''},3000)};recog.onend=function(){listening=false;document.getElementById('mbtn').classList.remove('listening')}}
 function toggleMic(){if(!recog)setupMic();if(!recog)return;if(listening){recog.stop()}else{document.getElementById('inp').value='';recog.start()}}
