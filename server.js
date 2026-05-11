@@ -7,28 +7,35 @@ app.use(express.static(__dirname));
 app.post('/api/chat', async function(req, res) {
 const systemPrompt = req.body.systemPrompt;
 const messages = req.body.messages;
-const apiKey = process.env.GEMINI_API_KEY;
+const apiKey = process.env.OPENAI_API_KEY;
 
-if (!apiKey) {
-return res.status(500).json({ error: 'API key not configured' });
-}
-
-const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=' + apiKey;
+if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
 try {
-const response = await fetch(url, {
+const openaiMessages = [{ role: 'system', content: systemPrompt }];
+for (var i = 0; i < messages.length; i++) {
+openaiMessages.push({
+role: messages[i].role === 'model' ? 'assistant' : messages[i].role,
+content: messages[i].parts[0].text
+});
+}
+
+const response = await fetch('https://api.openai.com/v1/chat/completions', {
 method: 'POST',
-headers: { 'Content-Type': 'application/json' },
+headers: {
+'Content-Type': 'application/json',
+'Authorization': 'Bearer ' + apiKey
+},
 body: JSON.stringify({
-system_instruction: { parts: [{ text: systemPrompt }] },
-contents: messages
+model: 'gpt-4o-mini',
+max_tokens: 300,
+messages: openaiMessages
 })
 });
+
 const data = await response.json();
-if (!response.ok) {
-return res.status(500).json({ error: data.error ? data.error.message : 'API error' });
-}
-res.json({ reply: data.candidates[0].content.parts[0].text });
+if (!response.ok) throw new Error(data.error ? data.error.message : 'API error');
+res.json({ reply: data.choices[0].message.content });
 } catch (err) {
 res.status(500).json({ error: err.message });
 }
